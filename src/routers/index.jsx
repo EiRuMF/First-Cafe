@@ -8,6 +8,7 @@ import Register from "@/pages/Login/register";
 // Pages
 import Home from "@/pages/Home/index";
 import Cart from "@/pages/Cart/index";
+import Profile from "@/pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -27,5 +28,9 @@ export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [{ path: "/cart", element: <Cart /> }],
+  },
+  {
+    element: <MainLayout />,
+    children: [{ path: "/profile", element: <Profile /> }],
   },
 ]);

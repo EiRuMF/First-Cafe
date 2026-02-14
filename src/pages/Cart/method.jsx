@@ -48,7 +48,7 @@ function Method() {
         ``
       </section>
       {/* Button */}
-      <section className="p-5">
+      <section className="p-5 pb-20">
         <Button
           onClick={() => navigate("/")}
           className="w-full bg-[#0F3D2E] hover:bg-[#0d2c22]"
