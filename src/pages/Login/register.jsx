@@ -1,37 +1,108 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    phone_number: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:3333/api/v1/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message || "Register gagal");
+        return;
+      }
+
+      localStorage.setItem("token", data.data.token);
+
+      alert("Register berhasil!");
+      window.location.href = "/login";
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <main>
       <section>
-        <div className="w-full flex flex-col items-start justify-start text-black p-6">
+        <form
+          className="w-full flex flex-col items-start justify-start text-black p-6"
+          onSubmit={handleRegister}
+        >
           <h1 className="text-3xl font-bold mb-4 text-start">Register</h1>
           <p className="text-gray-500">Make your account here!</p>
 
           <input
             type="text"
+            name="fullName"
             placeholder="Username"
-            className="w-[28vw] mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
+            onChange={handleChange}
+            className="w-[70vw] mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
           />
 
           <input
             type="email"
+            name="email"
             placeholder="Email"
+            onChange={handleChange}
             className="w-full mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
           />
           <input
             type="number"
+            name="phoneNumber"
             placeholder="Nomor Handphone"
+            onChange={handleChange}
             className="w-full mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
           />
 
           <input
             type="password"
+            name="password"
             placeholder="Password"
+            onChange={handleChange}
+            className="w-full mb-4 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
+          />
+          <input
+            type="password"
+            name="password_confirmation"
+            placeholder="Confirm Password"
+            onChange={handleChange}
             className="w-full mb-4 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
           />
 
-          <Button className="w-full bg-[#607274]">Login</Button>
+          <Button
+            type="submit"
+            onClick={() => navigate("/login")}
+            className="w-full bg-[#607274]"
+          >
+            Register
+          </Button>
 
           <p className="mt-3 text-gray-500">
             Sudah punya akun?{" "}
@@ -42,7 +113,7 @@ function Register() {
             </a>{" "}
             Disini
           </p>
-        </div>
+        </form>
       </section>
     </main>
   );

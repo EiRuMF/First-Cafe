@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./protectRoute";
 // Layout
 import MainLayout from "@/layouts/mainLayout";
 import BlankLayout from "@/layouts/blankLayout";
@@ -22,15 +23,42 @@ export const router = createBrowserRouter([
 
   {
     element: <MainLayout />,
-    children: [{ path: "/", element: <Home /> }],
+    children: [
+      {
+        path: "/",
+        element: (
+          <ProtectedRoute>
+            <Home />
+           </ProtectedRoute>
+        ),
+      },
+    ],
   },
 
   {
     element: <MainLayout />,
-    children: [{ path: "/cart", element: <Cart /> }],
+    children: [
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
   {
     element: <MainLayout />,
-    children: [{ path: "/profile", element: <Profile /> }],
+    children: [
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
 ]);
