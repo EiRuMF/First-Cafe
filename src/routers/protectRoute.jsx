@@ -6,21 +6,12 @@ function ProtectedRoute({ children }) {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setIsAuth(false);
-      setLoading(false);
-      return;
-    }
-
     fetch("http://localhost:3333/api/v1/auth/me", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      // credentials: "include",
+      credentials: "include",
     })
       .then((res) => {
         if (res.ok) {

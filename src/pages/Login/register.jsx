@@ -63,7 +63,7 @@ function Register() {
             name="fullName"
             placeholder="Username"
             onChange={handleChange}
-            className="w-[70vw] mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
+            className="w-full mb-3 px-3 py-3 border rounded-lg bg-[#607274] text-white placeholder:text-white"
           />
 
           <input
